@@ -1,0 +1,31 @@
+server {
+    listen 80 default_server;
+    server_name _;
+	#301 for permanent redirect
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl default_server;
+    server_name _;
+    root /usr/share/nginx/html;
+
+    ssl_certificate /etc/nginx/ssl/public.pem;
+    ssl_certificate_key /etc/nginx/ssl/private.key;
+
+    rewrite ^(/.*)\.html(\?.*)?$ $1$2 redirect;
+    rewrite ^/(.*)/$ /$1 redirect;
+
+    location / {
+        try_files $uri/index.html $uri.html $uri/ $uri =404;
+    }
+
+    location = /admin {
+        auth_basic "Login Required";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        try_files $uri/index.html $uri.html $uri/ $uri =404;
+    }
+
+    error_page 404 /404.html;
+    error_page 500 501 502 503 504 /50x.html;
+}

@@ -1,0 +1,7 @@
+nginx Notes
+===========
+user directive - specifies which user the worker processes should run under.
+worker_processes directive - lets us specify the number of worker processes to use.
+events {
+    worker_connections 1024; --> how much current connections worker_processes can handle.
+}

@@ -1,0 +1,3 @@
+Check the syntax: nginx -t
+Listout modules in the binary: nginx -V 2>&1 | tr -- - '\n' | grep _module
+Increase file upload size: client_max_body_size  5m; # by default 1mb.
