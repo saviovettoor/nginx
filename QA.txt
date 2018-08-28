@@ -1,3 +1,22 @@
-Check the syntax: nginx -t
-Listout modules in the binary: nginx -V 2>&1 | tr -- - '\n' | grep _module
-Increase file upload size: client_max_body_size  5m; # by default 1mb.
+Check the syntax?
+	nginx -t
+Listout modules in the binary?
+	nginx -V 2>&1 | tr -- - '\n' | grep _module
+Increase file upload size?
+	client_max_body_size  5m; # by default 1mb.
+How to view cache is enabled?
+	By Checking response headers in the browser, if cache is not enabled you will see cache-control: no-cache.must-revalidate max-age=8.
+	If cache is enabled this wont be there.
+How to know if our request was a cache hit or cache miss?
+	NGINX provides an upstream_cache_status variable that indicates whether the current request is a cache hit or miss.
+	After configuring when we look at the response headers. We’ll see either “X-Cache-Status: MISS” or “X-Cache-Status: HIT”. This makes debugging caching issues a lot easier.
+What is Microcaching?
+	Microcaching is the process of caching content for a short amount of time. 
+What is NGINX's default load balancing method?
+	Round-robin
+Diff Type of load balancing?
+	Round-Robin- equal number of requests going to each server.
+	least_conn - Specifies that requests should be routed to the server with the least number of active connections.
+	least_time that routes requests to the server with the lowest average response time.
+	hash - Specifies how a key should be build based on the request, mapping all requests with the same key to the same server.
+	ip_hash - Specifies a client-server grouping based on the client IP address
